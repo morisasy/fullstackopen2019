@@ -1,0 +1,20 @@
+{
+  "name": "movie",
+  "version": "1.0.0",
+  "description": "express, nodejs, javascript, nodemon, html, css",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^14.3.1",
+    "mongoose": "^5.7.11",
+    "nodemon": "^1.19.4"
+  }
+}
