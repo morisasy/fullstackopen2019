@@ -29,4 +29,8 @@ The Repository for The University of Helsinki's MOOC course
 
 - phonebookbackend
 
+#### Part 
+
+- bloglist
+
 

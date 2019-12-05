@@ -9,6 +9,7 @@
 **/.env
 *.env
 /part3/.env
+
 /part1/courseinfo/node_modules
 /part1/unicafe/node_modules
 /part1/anecdotes/node_modules
