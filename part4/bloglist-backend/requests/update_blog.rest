@@ -1,0 +1,10 @@
+PUT http://localhost:3003/api/blogs
+content-type: application/json
+
+{
+			      "title": "Sunbath Trend",
+            "author": "Jim Kim",
+            "url": "www.thesun.com",
+            "likes": 50
+            
+}
