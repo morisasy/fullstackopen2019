@@ -15,7 +15,6 @@ const blogSchema = mongoose.Schema({
   })
 const Blog = mongoose.model('Blog', blogSchema)
 
-const mongoUrl = 'mongodb+srv://fullstack:kinondoni@cluster0-2xns0.mongodb.net/bloglist?retryWrites=true&w=majority'
 
 
 mongoose.connect(mongoUrl, {

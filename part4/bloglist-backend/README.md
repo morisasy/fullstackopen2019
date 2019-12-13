@@ -17,6 +17,3 @@ The Repository for The University of Helsinki's MOOC course
 
 -  https://peaceful-spire-58890.herokuapp.com/api/persons
 
-
-
-

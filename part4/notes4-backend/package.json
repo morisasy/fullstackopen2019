@@ -7,7 +7,7 @@
     "start": "node index.js",
     "watch": "nodemon index.js",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose"
   },
   "author": "Risasi",
   "license": "ISC",
@@ -25,7 +25,11 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "jest": "^24.9.0",
     "nodeman": "^1.1.2",
     "nodemon": "^1.19.4"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
