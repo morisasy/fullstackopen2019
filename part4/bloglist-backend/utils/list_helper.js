@@ -10,8 +10,20 @@ const dummy = (blogs) => {
    const result=  array.reduce(reducer, 0)
    return result
   }
+
+  // get max likes
+const maxLikes = Math.max(...blogList.map(blog => blog.likes))
+console.log('Max like', maxLikes)
+
+// Get the object liked most
+const favoriteBlog = (items, max) => {
+  const favoriteItem = items.find(item => item.likes === max)
+  return favoriteItem
+}
+console.log('blog most liked', favoriteBlog)
   
   module.exports = {
     dummy,
-    totalLikes
+    totalLikes,
+    favoriteBlog
   }
