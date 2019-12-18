@@ -39,20 +39,29 @@ describe('total likes', () => {
 
   test('favorite blogs ', () => {
     const favoriteBlogToTEst = {
-        _id: "5a422b3a1b54a676234d17f9",
         title: "Canonical string reduction",
         author: "Edsger W. Dijkstra",
-        url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
-        likes: 12,
-        __v: 0
+        likes: 12
     }
-
+/*
   // get max likes
-const maxLikes = Math.max(...blogList.map(blog => blog.likes))
-console.log('Max like', maxLikes)
+    const maxLikes = Math.max(...blogList.map(blog => blog.likes))
+    console.log('Max like', maxLikes)
+
+    // Get the object liked most
+    const favoriteBlog = blogList.find(blog => blog.likes === maxLikes)
+    console.log('blog most liked', favoriteBlog)
+   */
+  
+    
+    // get max likes
+    const maxLikes = Math.max(...blogList.map(blog => blog.likes))
+    console.log('Max like', maxLikes)
     const result = listHelper.favoriteBlog(blogList, maxLikes)
     expect(result).toEqual(favoriteBlogToTEst)
-  })
+ 
+    })
+    
 })
 
 
