@@ -1,23 +1,25 @@
 const dummy = (blogs) => {
-    return blogs.length;
-  }
+      return 1;
+}
 
-  const reducer = (sum, item) => {
+// count number of blog in a list
+const blogCount = (blogs) => {
+  return blogs.length;
+}
+
+const reducer = (sum, item) => {
     return sum + item.likes
-  }
+}
   // totalLikes = blogList.reduce((sum, blog) => { return sum + blog.likes},0)
-  const totalLikes = array => {
+const totalLikes = array => {
    const result=  array.reduce(reducer, 0)
    return result
-  }
-
-  // get max likes
-//const maxLikes = Math.max(...blogList.map(blog => blog.likes))
-//console.log('Max like', maxLikes)
+}
 
 
-// Get the object liked most
+// Get the favorite blog 
 const favoriteBlog = (items, max) => {
+  if (items.length === 0) return null
   const favoriteItem = items.find(item => item.likes === max)
   let favoriteBlogPost = {}
   favoriteBlogPost['title'] = favoriteItem.title
@@ -25,10 +27,22 @@ const favoriteBlog = (items, max) => {
   favoriteBlogPost['likes'] = favoriteItem.likes
   return favoriteBlogPost
 }
-//console.log('blog most liked', favoriteBlog)
+
+// Get the most liked object
+const mostLikes = (blogs, max) => {
+  if (blogs.length === 0) return null
+  const favoriteItem = blogs.find(blog => blog.likes === max)
+  let favoriteBlogPost = {}
+  favoriteBlogPost['author'] = favoriteItem.author
+  favoriteBlogPost['likes'] = favoriteItem.likes
+  return favoriteBlogPost
+}
+
   
   module.exports = {
     dummy,
+    blogCount,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    mostLikes
   }

@@ -1,4 +1,4 @@
-const {blogList} = require('./blog_for_test')
+const {blogList} = require('../tests/blog_for_test')
 
 
 totalLikes = blogList.reduce((sum, blog) => { return sum + blog.likes},0)
@@ -9,10 +9,21 @@ console.log('Max like', maxLikes)
 // Get the object liked most
 const favoriteBlog = blogList.find(blog => blog.likes === maxLikes)
 console.log('blog most liked', favoriteBlog)
-
-
-
 console.log('list of blogs', blogList)
 
 console.log('Total bloglist: ', blogList.length)
 console.log('Total likes : ', totalLikes)
+
+
+const mostBlogs = (blogs) => {
+    if (blogs.length === 0) return null
+    let topWriter = blogs.reduce((a, b) => {
+      return blogs.filter(blog => blog.author === a.author).length >= blogs.filter(blog => blog.author === b.author).length ? a : b
+    }, blogs[0])
+    return {
+      author: topWriter.author,
+      blogs: blogs.filter(blog => blog.author === topWriter.author).length
+    }
+  }
+
+  console.log('Most blog : ', mostBlogs(blogList))
