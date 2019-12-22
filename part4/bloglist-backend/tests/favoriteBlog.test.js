@@ -9,36 +9,23 @@ describe('Most Favorite blog in the blogList ', () => {
             author: "Edsger W. Dijkstra",
             likes: 12
         }
-        // get max likes
-        const maxLikes = Math.max(...blogList.map(blog => blog.likes))
-        console.log('Max like', maxLikes)
-        const result = listHelper.favoriteBlog(blogList, maxLikes)
+
+        const result = listHelper.favoriteBlog(blogList)
         expect(result).toEqual(favoriteBlogToTEst)
      
     })
   
-    test('A blog with zero like ', () => {
-        const blogWithZeroLike = {
-            title: "TDD harms architecture",
-            author: "Robert C. Martin",
-            likes: 0
+    test('A blog with 7 likes ', () => {
+        const newblog = {
+            title: "React patterns",
+            author: "Michael Chan",
+            likes: 7
         }
-        const noLikes = Math.min(...blogList.map(blog => blog.likes))
-        const result = listHelper.favoriteBlog(blogList, noLikes)
-        expect(result).toEqual(blogWithZeroLike)
+        let newBlogList = blogList.filter(blog => blog.author === "Michael Chan")
+        const result = listHelper.favoriteBlog(newBlogList)
+        expect(result).toEqual(newblog)
     })
   
-    test('of a blog post with only 2 likes', () => {
-        const blogPost= {
-            title: "Type wars",
-            author: "Robert C. Martin",
-            likes: 2
-        }
-        let likes = 2
-        const result = listHelper.favoriteBlog(blogList, likes)
-        expect(result).toEqual(blogPost)
-
-    })
     test('when blogList is empty ', () => {
         const result = listHelper.favoriteBlog([])
         expect(result).toEqual(null)

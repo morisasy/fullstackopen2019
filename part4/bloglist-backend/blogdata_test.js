@@ -1,6 +1,6 @@
-const {blogList} = require('../tests/blog_for_test')
+const {blogList} = require('./tests/blog_for_test')
 
-
+console.log('blogList: ', blogList[3])
 totalLikes = blogList.reduce((sum, blog) => { return sum + blog.likes},0)
 // get max likes
 const maxLikes = Math.max(...blogList.map(blog => blog.likes))
@@ -25,5 +25,8 @@ const mostBlogs = (blogs) => {
       blogs: blogs.filter(blog => blog.author === topWriter.author).length
     }
   }
+let newBlogList = blogList.filter(blog => blog.author !== "Robert C. Martin")
+  console.log('Most blog : ', mostBlogs(newBlogList))
 
-  console.log('Most blog : ', mostBlogs(blogList))
+  const authorList = blogList.map(blog => blog.author)
+  console.log('author list : ',  authorList)
