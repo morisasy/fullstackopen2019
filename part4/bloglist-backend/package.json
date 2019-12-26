@@ -7,7 +7,7 @@
     "start": "node index.js",
     "watch": "nodemon index.js",
     "lint": "eslint .",
-    "test":  "jest --verbose"
+    "test": "jest --verbose"
   },
   "keywords": [
     "ReactJs",
@@ -31,8 +31,10 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "eslint": "^6.7.2",
     "jest": "^24.9.0",
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "supertest": "^4.0.2"
   }
 }
