@@ -71,6 +71,6 @@ const Blog = require('../models/blog')
         })
         .catch(error => next(error))
     */
-    })
+})
   
 module.exports = blogsRouter;
