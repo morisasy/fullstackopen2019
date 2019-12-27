@@ -4,38 +4,38 @@ const Blog = require('../models/blog')
 
 
 const initialBlogs = [
-  {     
-        title:"You never fail until you stop trying",
-        author:"albert stein",
-        url:"htps://www.thebusiness.com/quoteoftheday",
-        likes:1000,
-    },
-    {     
-        title:"Sunbath Trend",
-        author:"Jim Kim",
-        url:"www.thesun.com",
-        likes:50,
-    },
-    {     
-        title:"Finnish Food",
-        author:"Suvi",
-        url:"www.yle.fi/ruoka",
-        likes:30,
-    },
-    {
-        title:"Crypto currency",
-        author:"Medi",
-        url:"htps://www.crypto.com/info",
-        likes:10
-    },
+  {
+    title:'You never fail until you stop trying',
+    author:'albert stein',
+    url:'htps://www.thebusiness.com/quoteoftheday',
+    likes:1000,
+  },
+  {
+    title:'Sunbath Trend',
+    author:'Jim Kim',
+    url:'www.thesun.com',
+    likes:50,
+  },
+  {
+    title:'Finnish Food',
+    author:'Suvi',
+    url:'www.yle.fi/ruoka',
+    likes:30,
+  },
+  {
+    title:'Crypto currency',
+    author:'Medi',
+    url:'htps://www.crypto.com/info',
+    likes:10
+  },
 ]
 
 const nonExistingId = async () => {
-  const blog = new Blog({ 
-      title: 'willremovethissoon',
-      author:"Removed",
-      url:"htps://www.removed.com/info",
-      likes:10 
+  const blog = new Blog({
+    title: 'willremovethissoon',
+    author:'Removed',
+    url:'htps://www.removed.com/info',
+    likes:10
   })
   await blog.save()
   await blog.remove()

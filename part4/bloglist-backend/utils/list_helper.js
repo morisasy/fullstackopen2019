@@ -1,10 +1,10 @@
 const dummy = (blogs) => {
-      return 1;
+  return 1
 }
 
 // count number of blog in a list
 const blogCount = (blogs) => {
-  return blogs.length;
+  return blogs.length
 }
 // get  total likes
 const sumofLikes = (a, b) =>  a + b.likes
@@ -16,10 +16,10 @@ const filterHelper = (items, el) => items.filter(item => item.author === el.auth
 
 
 
-  // totalLikes = blogList.reduce((sum, blog) => { return sum + blog.likes},0)
+// totalLikes = blogList.reduce((sum, blog) => { return sum + blog.likes},0)
 const totalLikes = array => {
-   const result=  array.reduce(sumofLikes, 0)
-   return result
+  const result=  array.reduce(sumofLikes, 0)
+  return result
 }
 
 // get most liked blogger helper function
@@ -57,8 +57,6 @@ const mostLikes = (blogs) => {
 
   // Get a blogList of blogger with most likes
   let mostLikesListBlog= filterHelper(blogs, blogWithMostLikes)
-  
-  console.log("total likes: ", totalLikes(mostLikesListBlog))
   let newBlog = {}
   newBlog ['author'] = blogWithMostLikes.author
   newBlog ['likes'] = totalLikes(mostLikesListBlog)
@@ -66,11 +64,11 @@ const mostLikes = (blogs) => {
 }
 
   
-  module.exports = {
-    dummy,
-    blogCount,
-    totalLikes,
-    favoriteBlog,
-    mostLikes,
-    mostBlogs 
-  }
+module.exports = {
+  dummy,
+  blogCount,
+  totalLikes,
+  favoriteBlog,
+  mostLikes,
+  mostBlogs
+}
