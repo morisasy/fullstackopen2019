@@ -95,6 +95,27 @@ describe('adding blog posts', () => {
     expect(contents).toContain('Uskollinen Lukija')
   })
 })
+
+test('When a blog withought a like default value is 0', async () => {
+  const newPost = {
+    title: 'Please like my post',
+    author: 'Withought Likes',
+    url: 'https://ww.zerolikes.fi'
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newPost)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  const getBlogPost = await helper.blogsInDb()
+  const contents  = getBlogPost.map(blog => blog.likes)
+ // expect(contents).toBe(0)
+ expect(contents).toContain()
+})
+
+
 afterAll(() => {
   mongoose.connection.close()
 })
