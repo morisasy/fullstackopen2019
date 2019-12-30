@@ -16,18 +16,6 @@ const initialBlogs = [
     url:'www.thesun.com',
     likes:50,
   },
-  {
-    title:'Finnish Food',
-    author:'Suvi',
-    url:'www.yle.fi/ruoka',
-    likes:30,
-  },
-  {
-    title:'Crypto currency',
-    author:'Medi',
-    url:'htps://www.crypto.com/info',
-    likes:10
-  },
 ]
 
 const nonExistingId = async () => {
