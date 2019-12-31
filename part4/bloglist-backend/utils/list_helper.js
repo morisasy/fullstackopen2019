@@ -62,8 +62,6 @@ const mostLikes = (blogs) => {
   newBlog ['likes'] = totalLikes(mostLikesListBlog)
   return newBlog
 }
-
-  
 module.exports = {
   dummy,
   blogCount,

@@ -29,11 +29,10 @@ const initialBlogs = [
 beforeEach(async () => {
   await Blog.deleteMany({})
 
-  let blogObject = new Blog(initialBlogs[0])
-  await blogObject.save()
-
-  blogObject = new Blog(initialBlogs[1])
-  await blogObject.save()
+  const blogObjects = helper.initialBlogs
+    .map(blog => new Blog(blog))
+  const promiseArray = blogObjects.map(blog => blog.save())
+  await Promise.all(promiseArray)
 })
 
 describe('when there is initially some notes saved', () => {
@@ -55,13 +54,14 @@ describe('when there is initially some notes saved', () => {
 
   test('there are 2 blogs', async () => {
     const response = await api.get('/api/blogs')
-    console.table(response.body)
+    //console.table(response.body)
     expect(response.body.length).toBe(initialBlogs.length)
   })
 
-  test('the title of the first blog is You never fail until you stop trying ', async () => {
+  test('the title of the first blog is Sunbath Trend ', async () => {
     const response = await api.get('/api/blogs')
-    expect(response.body[0].author).toBe('albert stein')
+    console.log('first blog', response.body[0])
+    expect(response.body[0].author).toBe('Jim Kim')
   })
 
 
@@ -73,8 +73,8 @@ describe('when there is initially some notes saved', () => {
 
 })
 
-describe('adding blog posts', () => {
-  test('creating a new blog post', async () => {
+describe('addition of a new blog post', () => {
+  test('creation of  a new blog post', async () => {
     const newPost = {
       title: 'Uskollinen Lukija',
       author: 'Max Seeck',
@@ -95,7 +95,7 @@ describe('adding blog posts', () => {
     expect(contents).toContain('Uskollinen Lukija')
   })
   test('When a blog withought a like default value is 0', async () => {
-    const newPost = {
+    const newBlog = {
       title: 'Please like my post',
       author: 'Withought Likes',
       url: 'https://ww.zerolikes.fi'
@@ -103,7 +103,10 @@ describe('adding blog posts', () => {
 
     await api
       .post('/api/blogs')
-      .send(newPost)
+      .send({
+        ...newBlog,
+        likes: undefined
+      })
       .expect(200)
       .expect('Content-Type', /application\/json/)
 
@@ -132,9 +135,50 @@ describe('adding blog posts', () => {
 })
 
 
+describe('Blogpost deletion', () => {
+  test('succeeds with 204 if it exists', async () => {
+    const blogAtStart = await helper.blogsInDb()
+    console.table(blogAtStart)
+    const postToDelete = blogAtStart[0]
+    console.table(postToDelete.id)
+    console.log('post to Delete:', postToDelete)
+
+    await api
+      .delete(`/api/blogs/${postToDelete.id}`)
+      .expect(204)
+
+    const blogAtEnd = await helper.blogsInDb()
+
+    expect(blogAtEnd.length).toBe(blogAtStart.length - 1)
+    const contents = blogAtEnd.map(post => post.title)
+    expect(contents).not.toContain(postToDelete.title)
+  })
+})
 
 
 
+describe('Updating a Blogpost', () => {
+  test('A blog can be updated', async () => {
+    const newBlog = {
+      id: '5e0a6b50d695a243ffca846d',
+      title:'Sunbath Trend',
+      author:'Jim Kim',
+      url:'www.thesun.com',
+      likes:60,
+    }
+
+    await api
+      .put(`/api/blogs/${newBlog.id}`)
+      .send(newBlog)
+      .expect(200)
+    const updatedBlogs = await helper.blogsInDb()
+    const titles = updatedBlogs.map(t => t.title)
+    const likes = updatedBlogs.map(l => l.likes)
+
+    expect(titles).toContain(newBlog.title)
+    expect(likes).toContain(newBlog.likes)
+  })
+})
 
 afterAll(() => {
   mongoose.connection.close()

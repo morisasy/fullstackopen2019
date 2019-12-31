@@ -5,12 +5,14 @@ const Blog = require('../models/blog')
 
 const initialBlogs = [
   {
+    _id: '5e0a6b50d695a243ffca846c',
     title:'You never fail until you stop trying',
     author:'albert stein',
     url:'htps://www.thebusiness.com/quoteoftheday',
     likes:1000,
   },
   {
+    _id: '5e0a6b50d695a243ffca846d',
     title:'Sunbath Trend',
     author:'Jim Kim',
     url:'www.thesun.com',
