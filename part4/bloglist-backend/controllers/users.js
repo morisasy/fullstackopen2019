@@ -3,14 +3,20 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 
 usersRouter.get('/', async (request, response) => {
-  const users = await User.find({})
-  console.table(users)
+  const users = await User
+    .find({})
+    .populate('blogs')
   response.json(users.map(u => u.toJSON()))
 })
 
 usersRouter.post('/', async (request, response, next) => {
   try {
     const body = request.body
+    if (body.password.length < 4) {
+      return response.status(400).json({ 
+        error: 'password must be 4 or more characters long'
+      })
+    }
 
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(body.password, saltRounds)

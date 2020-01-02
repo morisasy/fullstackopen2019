@@ -8,24 +8,6 @@ const helper= require('./test_helper')
 const User = require('../models/user')
 const Blog = require('../models/blog')
 
-/*
-const initialBlogs = [
-
-
-  {
-    title:'You never fail until you stop trying',
-    author:'albert stein',
-    url:'htps://www.thebusiness.com/quoteoftheday',
-    likes: 1000,
-  },
-  {
-    title:'Sunbath Trend',
-    author:'Jim Kim',
-    url:'www.thesun.com',
-    likes: 50
-  },
-]
-*/
 
 beforeEach(async () => {
   await Blog.deleteMany({})
