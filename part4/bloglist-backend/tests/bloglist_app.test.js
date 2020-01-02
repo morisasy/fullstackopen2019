@@ -5,10 +5,10 @@ const app = require('../app')
 const api = supertest(app)
 const helper= require('./test_helper')
 //  initialBlogs, nonExistingId, blogsInDb
-
+const User = require('../models/user')
 const Blog = require('../models/blog')
 
-
+/*
 const initialBlogs = [
 
 
@@ -25,6 +25,7 @@ const initialBlogs = [
     likes: 50
   },
 ]
+*/
 
 beforeEach(async () => {
   await Blog.deleteMany({})
@@ -35,7 +36,7 @@ beforeEach(async () => {
   await Promise.all(promiseArray)
 })
 
-describe('when there is initially some notes saved', () => {
+describe('when there is initially some blog post saved', () => {
 
   test('Blogs are returned as json', async () => {
     await api
@@ -50,20 +51,23 @@ describe('when there is initially some notes saved', () => {
     console.table(response.body)
   })
 
-
+  test('all blogs are returned', async () => {
+    const response = await api.get('/api/blogs')
+    expect(response.body.length).toBe(helper.initialBlogs.length)
+  })
 
   test('there are 2 blogs', async () => {
     const response = await api.get('/api/blogs')
     //console.table(response.body)
-    expect(response.body.length).toBe(initialBlogs.length)
+    expect(response.body.length).toBe(helper.initialBlogs.length)
   })
-
-  test('the title of the first blog is Sunbath Trend ', async () => {
+/*
+  test('the title of the first blog is You never fail until you stop trying ', async () => {
     const response = await api.get('/api/blogs')
     console.log('first blog', response.body[0])
-    expect(response.body[0].author).toBe('Jim Kim')
+    expect(response.body[0].author).toBe('albert stein')
   })
-
+*/
 
   test('a specific blog is within the returned blog', async () => {
     const response = await api.get('/api/blogs')
@@ -121,6 +125,7 @@ describe('addition of a new blog post', () => {
       author: 'Paivi',
       likes: 10
     }
+    const blogsAtStart = await helper.blogsInDb()
 
     await api
       .post('/api/blogs')
@@ -128,9 +133,9 @@ describe('addition of a new blog post', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
-    const getBlogPost = await helper.blogsInDb()
+    const blogsAtEnd = await helper.blogsInDb()
 
-    expect(getBlogPost.length).toBe(helper.initialBlogs.length)
+    expect(blogsAtEnd.length).toBe(blogsAtStart.length)
   })
 })
 
@@ -156,12 +161,12 @@ describe('Blogpost deletion', () => {
 })
 
 
-
 describe('Updating a Blogpost', () => {
   test('A blog can be updated', async () => {
+    const beforeBlogsUpdated = await helper.blogsInDb()
     const newBlog = {
       id: '5e0a6b50d695a243ffca846d',
-      title:'Sunbath Trend',
+      title:'Suana Winter Trend',
       author:'Jim Kim',
       url:'www.thesun.com',
       likes:60,
@@ -175,8 +180,62 @@ describe('Updating a Blogpost', () => {
     const titles = updatedBlogs.map(t => t.title)
     const likes = updatedBlogs.map(l => l.likes)
 
-    expect(titles).toContain(newBlog.title)
-    expect(likes).toContain(newBlog.likes)
+    console.table(beforeBlogsUpdated)
+    expect(titles).not.toContain(beforeBlogsUpdated.title)
+    expect(likes).not.toContain(beforeBlogsUpdated.likes)
+    expect(updatedBlogs.length).toBe(beforeBlogsUpdated.length)
+  })
+})
+
+
+describe('when there is initially one user at db', () => {
+  beforeEach(async () => {
+    await User.deleteMany({})
+    const user = new User({ username: 'root', password: 'sekret' })
+    await user.save()
+  })
+
+  test('creation succeeds with a fresh username', async () => {
+    const usersAtStart = await helper.usersInDb()
+
+    const newUser = {
+      username: 'mluukkai',
+      name: 'Matti Luukkainen',
+      password: 'salainen',
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const usersAtEnd = await helper.usersInDb()
+    expect(usersAtEnd.length).toBe(usersAtStart.length + 1)
+
+    const usernames = usersAtEnd.map(u => u.username)
+    expect(usernames).toContain(newUser.username)
+  })
+
+  test('creation fails with proper statuscode and message if username already taken', async () => {
+    const usersAtStart = await helper.usersInDb()
+
+    const newUser = {
+      username: 'root',
+      name: 'Superuser',
+      password: 'salainen',
+    }
+
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('`username` to be unique')
+
+    const usersAtEnd = await helper.usersInDb()
+    expect(usersAtEnd.length).toBe(usersAtStart.length)
   })
 })
 

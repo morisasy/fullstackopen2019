@@ -16,10 +16,14 @@ const blogSchema = mongoose.Schema({
     required: true,
     minlength: 5
   },
-  likes: Number
+  likes: Number,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
-blogSchema.set('toJSON', {
+blogSchema.set('toJSON', { 
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id

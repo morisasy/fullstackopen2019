@@ -3,7 +3,7 @@ const Blog = require('../models/blog')
 
 
 blogsRouter.get('/', async(request, response) => {
-  const blogs =  await Blog.find({})
+  const blogs = await Blog.find({})
   response.json(blogs.map(blog => blog.toJSON()))
 })
 
@@ -11,7 +11,7 @@ blogsRouter.get('/', async(request, response) => {
 blogsRouter.get('/info', async (req, res, next) => {
   try {
     const totalBlog = await Blog.find({}).countDocuments()
-    console.log(' Persons List:', totalBlog )
+    console.log('Persons List:', totalBlog )
     res.send(`
             <p>The blog List  has info of ${totalBlog} blogs</p>
             <p>${new Date()}</p>
@@ -64,13 +64,6 @@ blogsRouter.put('/:id', async(request, response, next) => {
   } catch (exception) {
     next(exception)
   }
-  /*
-      Blog.findByIdAndUpdate(request.params.id, blogContent, { new: true })
-        .then(updatedBlog => {
-          response.json(updatedBlog.toJSON())
-        })
-        .catch(error => next(error))
-    */
 })
 
 module.exports = blogsRouter
