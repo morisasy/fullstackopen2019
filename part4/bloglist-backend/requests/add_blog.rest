@@ -1,9 +1,9 @@
 POST http://localhost:3003/api/blogs
 content-type: application/json
-
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1ZTBlNTZkZWFkM2NlMzJmMzRhMGE5ZTgiLCJpYXQiOjE1NzgwOTQwMjJ9.u9pESp8PTzHw4GuTbVAgbHGEtboRdeWAVtRDmiACA3Q
 {
-			"title": "Finnish Food for x-mas",
-            "author": "Paivi",
-            "url": "www.yle.fi/ruoka/joulua",
-            "likes": 20
+			"title": "No White x-mass",
+            "author": "Mikko",
+            "url": "www.beat.fi",
+            "likes": 2
 }          
