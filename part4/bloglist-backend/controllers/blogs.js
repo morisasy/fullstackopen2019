@@ -4,25 +4,16 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 
-const getTokenFrom = request => {
-  const authorization = request.get('authorization')
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    return authorization.substring(7)
-  }
-  return null
-}
-
-
 blogsRouter.post('/', async(request, response, next) => {
   const body = request.body
-  const token = getTokenFrom(request)
+  //const token = getTokenFrom(request)
 
   try {
-    
-    const decodedToken = jwt.verify(token, process.env.SECRET)
+
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
     console.log(decodedToken)
 
-    if (!token || !decodedToken.id) {
+    if (!request.token || !decodedToken.id) {
       return response.status(401).json({ error: 'token missing or invalid' })
     }
 
@@ -90,6 +81,15 @@ blogsRouter.get('/:id', async(request, response, next) => {
 
 blogsRouter.delete('/:id', async(request, response, next) => {
   try {
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    if (!request.token || !decodedToken.id) {
+      return response.status(401).json({ error: 'Missing or Invalid token' })
+    }
+
+    const blog = await Blog.findById(request.params.id)
+    if (!(blog.user.toString() === decodedToken.id.toString())) {
+      return response.status(401).json({ error: 'unauthorized user token' })
+    }
     await Blog.findByIdAndRemove(request.params.id)
     response.status(204).end()
   } catch (exception) {
