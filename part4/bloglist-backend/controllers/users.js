@@ -12,9 +12,26 @@ usersRouter.get('/', async (request, response) => {
 usersRouter.post('/', async (request, response, next) => {
   try {
     const body = request.body
-    if (body.password.length < 4) {
+    if (body.username.length < 3 ) {
       return response.status(400).json({ 
-        error: 'password must be 4 or more characters long'
+        error: 'username mmust be 3 or more characters long'
+      })
+    }
+    if (body.name.length < 3) {
+      return response.status(400).json({
+        error: 'Name must be 3 or more characters long' 
+      })
+    }
+    if (body.password.length < 3) {
+      return response.status(400).json({ 
+        error: 'password must be 3 or more characters long'
+      })
+    }
+
+    const foundUser = await User.find({ username: body.username })
+    if (foundUser.length > 0) {
+      return response.status(400).json({
+        error: 'username is already taken'
       })
     }
 
