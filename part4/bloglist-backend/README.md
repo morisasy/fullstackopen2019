@@ -3,14 +3,17 @@
 
 ## Full stack web development MOOC
 
-### Part 3:  Programming a server with NodeJS and Express
+### Part 4: Testing Express servers, user administration
 
 The Repository for The University of Helsinki's MOOC course
   - 2019  Open university course [https://fullstack-hy2019.github.io/](fullstack-hy2019.github.io/)
 
-```
-    This part focus on  backend. Introducton to  a simple REST API in Node.js by using the Express library, and Nosql database such as a MongoDB database. lastly, deployment of the application to the internet
-
+```  
+  - Structure of backend application, introduction to testing.
+  - Testing the backend
+  - User administration
+  - 
+User administration
 ```
 
 #### phonebookbackend
