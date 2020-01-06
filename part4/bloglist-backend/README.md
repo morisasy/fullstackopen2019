@@ -12,8 +12,7 @@ The Repository for The University of Helsinki's MOOC course
   - Structure of backend application, introduction to testing.
   - Testing the backend
   - User administration
-  - 
-User administration
+  - Token authentication
 ```
 
 #### phonebookbackend
