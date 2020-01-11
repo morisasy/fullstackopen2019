@@ -4,11 +4,10 @@ import './App.css';
 import AddBlogForm from './components/AddBlogForm';
 import Blog from './components/Blog';
 import Button from './components/Button';
-import Footer from './components/footer';
+import Footer from './components/Footer';
 import LoginForm from './components/LoginForm';
-import Notification from './components/Notification';
-import ErrorNotification from './components/Notification';
-import SuccessNotification from './components/Notification';
+import ErrorNotification from './components/ErrorNotification';
+import SuccessNotification from './components/SuccessNotification';
 import blogService from './services/blogs';
 import loginService from './services/login';
 
@@ -30,6 +29,7 @@ function App() {
     blogService
       .getAll().then(initialBlog => {
         setBlogs(initialBlog)
+        console.table(blogs)
       })
   }, [])
 
@@ -46,6 +46,7 @@ function App() {
 const handleUsernameChange = (event) => {
   console.log("Handle Name Change",event.target.value);
    setUsername(event.target.value) 
+   console.log(" Name Change",username);
 };
 
 // HandlePassWordChange
@@ -83,22 +84,28 @@ const handleLogin = async (event) => {
       })
 
       window.localStorage.setItem(
-        'loggedNoteappUser', JSON.stringify(user)
+        'loggedBlogListappUser', JSON.stringify(user)
       ) 
 
       blogService.setToken(user.token)
       setUser(user)
-      setSuccessMessage(`a new blog added: ${title.value} by ${author.value}`)
+      setSuccessMessage(`${user.username} logged in`)
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage(`Welcome back ${user.name}!`)
+      setErrorMessage(`Welcome back ${user.username}!`)
       /*
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
       */
     }
+  }
+
+
+const handleAddBlog = async (event) => {
+    event.preventDefault()
+    console.log( "create blog")
   }
 // handle logout 
 //logout functionality
@@ -133,7 +140,7 @@ const handleLogout = async (event) => {
                           <Button onClick={handleLogout} text = "Logout"/>
                         </p>
                         <AddBlogForm 
-                          onSubmitAddBlog={onSubmitAddBlog}
+                          onSubmitAddBlog={handleAddBlog}
                           title={title}
                           handleTitleChange={handleTitleChange}
                           author={author}
@@ -146,7 +153,7 @@ const handleLogout = async (event) => {
                
                 <div>
                     <ul>
-                      {rows()}
+                    
                     </ul> 
                 </div>
                
