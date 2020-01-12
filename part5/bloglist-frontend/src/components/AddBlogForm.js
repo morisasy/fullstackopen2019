@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from "prop-types"
 
 
 const AddBlogFrom = ({ handleAddBlog, title, handleTitleChange, author, handleAuthorChange, url, handleUrlChange}) =>{
@@ -38,5 +38,15 @@ const AddBlogFrom = ({ handleAddBlog, title, handleTitleChange, author, handleAu
         </div>
     )
 }
+
+AddBlogFrom.propTypes = {
+    handleAddBlog: PropTypes.func,
+    title: PropTypes.string,
+    handleTitleChange: PropTypes.func,
+    author: PropTypes.string,
+    handleAuthorChangee: PropTypes.func,
+    handleUrlChange: PropTypes.func,
+    url: PropTypes.string
+  }
 
 export default AddBlogFrom;
