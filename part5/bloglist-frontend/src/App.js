@@ -109,16 +109,15 @@ const handleAddBlog = async (event) => {
 
     try {
       const newBlog = {
-        title: title.value,
-        author: author.value,
-        url: url.value
+        title: title,
+        author: author,
+        url: url
       }
-
-      const createdBlog = await blogService.create(newBlog)
-      //setBlogs(blogs.concat(addedBlog))
-      setBlogs([...blogs, createdBlog])
-    
-      setSuccessMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`)
+      console.log("new object to add: ", JSON.stringify(newBlog))
+      const blogCreated = await blogService.create(newBlog)
+      //setBlogs(blogs.concat(blogCreated))
+      setBlogs([...blogs, blogCreated])
+      setSuccessMessage(`a new blog added: ${title} by ${author}`)
       
       setTitle('')
       setAuthor('')
