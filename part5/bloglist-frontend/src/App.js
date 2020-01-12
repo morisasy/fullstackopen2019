@@ -25,6 +25,8 @@ function App() {
   const [author, setAuthor] =  useState('')
   const [url, setUrl] =  useState('')
 
+  // get all blog data from server
+  // Initilize blogs state
   useEffect(() => {
     blogService
       .getAll().then(initialBlog => {
@@ -32,7 +34,7 @@ function App() {
       })
   }, [])
   console.log("initial blogs", blogs)
-
+// get user information from localStorage
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogListappUser')
     if (loggedUserJSON) {
