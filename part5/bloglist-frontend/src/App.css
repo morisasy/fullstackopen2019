@@ -40,3 +40,12 @@
   .App-link {
     color: #09d3ac;
   }
+  input{
+    margin-left: 5px;
+  }
+  button {
+    margin-top: 5px;
+    margin-left: 5px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+  }

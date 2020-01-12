@@ -2,11 +2,11 @@ import React from 'react';
 
 
 
-const AddBlogFrom = (props) =>{
-    const {onSubmitAddBlog, title, handleTitleChange, author, handleAuthorChange, url, handleUrlChange} =props;
+const AddBlogFrom = ({ handleAddBlog, title, handleTitleChange, author, handleAuthorChange, url, handleUrlChange}) =>{
+   // const {onSubmitAddBlog, title, handleTitleChange, author, handleAuthorChange, url, handleUrlChange} =props;
     return(
         <div>
-             <form onSubmit={onSubmitAddBlog}>
+             <form onSubmit={handleAddBlog}>
                 <div>
                         Title: <input 
                                     value={title} 

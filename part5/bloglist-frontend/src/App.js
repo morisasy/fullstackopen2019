@@ -20,21 +20,21 @@ function App() {
   const [successMessage, setSuccessMessage] = useState(null)
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('') 
-  const [user, setUser] = useState(null)
-  const [title, setTitle] = useState(null)
-  const [author, setAuthor] = useState(null)
-  const [url, setUrl] = useState(null)
+  const [user, setUser] =  useState('')
+  const [title, setTitle] =  useState('')
+  const [author, setAuthor] =  useState('')
+  const [url, setUrl] =  useState('')
 
   useEffect(() => {
     blogService
       .getAll().then(initialBlog => {
         setBlogs(initialBlog)
-        console.table(blogs)
       })
   }, [])
+  console.log("initial blogs", blogs)
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogListappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
@@ -46,7 +46,6 @@ function App() {
 const handleUsernameChange = (event) => {
   console.log("Handle Name Change",event.target.value);
    setUsername(event.target.value) 
-   console.log(" Name Change",username);
 };
 
 // HandlePassWordChange
@@ -89,23 +88,53 @@ const handleLogin = async (event) => {
 
       blogService.setToken(user.token)
       setUser(user)
-      setSuccessMessage(`${user.username} logged in`)
       setUsername('')
       setPassword('')
+      
     } catch (exception) {
-      setErrorMessage(`Welcome back ${user.username}!`)
-      /*
+      setErrorMessage(` Wrong username or password`)
+    
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
-      */
+  
     }
+   
   }
 
-
+// create new blog
 const handleAddBlog = async (event) => {
     event.preventDefault()
     console.log( "create blog")
+
+    try {
+      const newBlog = {
+        title: title.value,
+        author: author.value,
+        url: url.value
+      }
+
+      const createdBlog = await blogService.create(newBlog)
+      //setBlogs(blogs.concat(addedBlog))
+      setBlogs([...blogs, createdBlog])
+    
+      setSuccessMessage(`a new blog added: ${newBlog.title} by ${newBlog.author}`)
+      
+      setTitle('')
+      setAuthor('')
+      setUrl('')
+      // Notification displays only 5s
+      setTimeout(() => {
+        setSuccessMessage(null)
+      }, 5000)
+    } catch (error) {
+      setErrorMessage(`Something went wrong  ${error}`)
+    
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+  
+    }
   }
 // handle logout 
 //logout functionality
@@ -134,13 +163,13 @@ const handleLogout = async (event) => {
             </div> :
                       <div>
                         <h2>Blogs</h2>
-                        <p>{user.name} logged in</p>
+                        
                         <SuccessNotification message={successMessage}/>
                         <p>{user.name} logged in
                           <Button onClick={handleLogout} text = "Logout"/>
                         </p>
                         <AddBlogForm 
-                          onSubmitAddBlog={handleAddBlog}
+                          handleAddBlog={handleAddBlog}
                           title={title}
                           handleTitleChange={handleTitleChange}
                           author={author}
@@ -148,17 +177,13 @@ const handleLogout = async (event) => {
                           url={url}
                           handleUrlChange={handleUrlChange}               
                         />
-                        {blogs.map(blog =>
-                          <Blog key={blog.id} blog={blog} />
-                        )}
+                        <div>
+                          {blogs.map(blog =>
+                            <Blog key={blog.id} blog={blog} />
+                          )}
+                        </div>
                       </div>
                 }
-               
-                <div>
-                    <ul>
-                    
-                    </ul> 
-                </div>
                
         <Footer />
    </div>
