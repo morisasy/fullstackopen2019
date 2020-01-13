@@ -11,8 +11,13 @@ import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
 import blogService from './services/blogs';
 import loginService from './services/login';
+import Display from "./components/Display";
 
-
+/*
+ {blogs.map(blog =>
+                            <Blog key={blog.id} blog={blog} />
+                          )}
+*/
 
 function App() {
 
@@ -187,9 +192,7 @@ const handleLogout = async (event) => {
                         </Togglable>
                        
                         <div>
-                          {blogs.map(blog =>
-                            <Blog key={blog.id} blog={blog} />
-                          )}
+                         <Display blogs = {blogs} />
                         </div>
                       </div>
                 }
