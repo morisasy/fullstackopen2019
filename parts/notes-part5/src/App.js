@@ -9,6 +9,7 @@ import loginService from './services/login'
 
 
 const App = () => {
+  const [loginVisible, setLoginVisible] = useState(false)
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true);

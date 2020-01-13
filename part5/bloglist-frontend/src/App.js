@@ -6,6 +6,7 @@ import Blog from './components/Blog';
 import Button from './components/Button';
 import Footer from './components/Footer';
 import LoginForm from './components/LoginForm';
+import Togglable from './components/Togglable';
 import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
 import blogService from './services/blogs';
@@ -24,6 +25,8 @@ function App() {
   const [title, setTitle] =  useState('')
   const [author, setAuthor] =  useState('')
   const [url, setUrl] =  useState('')
+  // AddblogForm ref
+  const addBlogFormRef = React.createRef()
 
   // get all blog data from server
   // Initilize blogs state
@@ -109,6 +112,8 @@ const handleAddBlog = async (event) => {
     event.preventDefault()
     console.log( "create blog")
 
+    addBlogFormRef.current.toggleVisibility()
+
     try {
       const newBlog = {
         title: title,
@@ -169,15 +174,18 @@ const handleLogout = async (event) => {
                         <p>{user.name} logged in
                           <Button onClick={handleLogout} text = "Logout"/>
                         </p>
-                        <AddBlogForm 
-                          handleAddBlog={handleAddBlog}
-                          title={title}
-                          handleTitleChange={handleTitleChange}
-                          author={author}
-                          handleAuthorChange={handleAuthorChange}
-                          url={url}
-                          handleUrlChange={handleUrlChange}               
-                        />
+                        <Togglable buttonLabel="create" ref ={addBlogFormRef} >
+                            <AddBlogForm 
+                              handleAddBlog={handleAddBlog}
+                              title={title}
+                              handleTitleChange={handleTitleChange}
+                              author={author}
+                              handleAuthorChange={handleAuthorChange}
+                              url={url}
+                              handleUrlChange={handleUrlChange}               
+                            />
+                        </Togglable>
+                       
                         <div>
                           {blogs.map(blog =>
                             <Blog key={blog.id} blog={blog} />

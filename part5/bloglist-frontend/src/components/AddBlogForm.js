@@ -2,9 +2,16 @@ import React from 'react';
 import PropTypes from "prop-types"
 
 
-const AddBlogFrom = ({ handleAddBlog, title, handleTitleChange, author, handleAuthorChange, url, handleUrlChange}) =>{
-   // const {onSubmitAddBlog, title, handleTitleChange, author, handleAuthorChange, url, handleUrlChange} =props;
-    return(
+const AddBlogFrom = (props) =>{
+  const { handleAddBlog,
+          title, 
+          handleTitleChange,
+          author,
+          handleAuthorChange,
+          url,
+          handleUrlChange} = props;
+  // const [blogFormVisible, setBlogFormVisible] = useState(false)
+   return(
         <div>
              <form onSubmit={handleAddBlog}>
                 <div>
