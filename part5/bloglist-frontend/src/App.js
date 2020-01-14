@@ -11,7 +11,7 @@ import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
 import blogService from './services/blogs';
 import loginService from './services/login';
-import Display from "./components/Display";
+import BlogList from "./components/BlogList";
 
 /*
  {blogs.map(blog =>
@@ -192,7 +192,7 @@ const handleLogout = async (event) => {
                         </Togglable>
                        
                         <div>
-                         <Display blogs = {blogs} />
+                         <BlogList blogs = {blogs} />
                         </div>
                       </div>
                 }

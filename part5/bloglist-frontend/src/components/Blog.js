@@ -1,4 +1,5 @@
 import React, { useState, useImperativeHandle } from 'react'
+import BlogDetail from './BlogDetail'
 const Blog = ({ blog }) => {
   const blogStyle = {
     paddingTop: 10,
@@ -7,19 +8,25 @@ const Blog = ({ blog }) => {
     borderWidth: 1,
     marginBottom: 5
   }
-  const [visible, setVisible] = useState(false)
-  const [newBlog, setNewBlog] = useState([])
-  // HandleUrlChange
-  // onClick={() => console.log('clicked',JSON.stringify(blog))}
-const handleChange = (event) => {
-  console.log("Handle url Change",event.target.value)
-  setNewBlog(newBlog.concat(event.target.value))
-  setVisible(!visible)
-}
+
+  const blogRef = React.createRef();
+
+  const handleToggleVisibility = () => {
+    blogRef.current.toggleVisibility()
+  }
+
   return (
-    <div  style={blogStyle} onClick={handleChange} >
-        {blog.title} {blog.author}
-    </div>
+   
+     <div>
+        <div style={blogStyle}  onClick={handleToggleVisibility}  >
+                    {blog.title} {blog.author}
+        </div>
+
+        <BlogDetail
+            ref={blogRef}
+            blog={blog}
+          />       
+   </div>
   )
 
 }
