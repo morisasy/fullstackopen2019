@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
-//import logo from './logo.svg';
 import './App.css';
 import AddBlogForm from './components/AddBlogForm';
-import Blog from './components/Blog';
 import Button from './components/Button';
 import Footer from './components/Footer';
 import LoginForm from './components/LoginForm';
@@ -13,11 +11,6 @@ import blogService from './services/blogs';
 import loginService from './services/login';
 import BlogList from "./components/BlogList";
 
-/*
- {blogs.map(blog =>
-                            <Blog key={blog.id} blog={blog} />
-                          )}
-*/
 
 function App() {
 
@@ -149,13 +142,96 @@ const handleAddBlog = async (event) => {
   }
 // handle logout 
 //logout functionality
-const handleLogout = async (event) => {
-  window.localStorage.clear()
-  blogService.setToken(null)
-  setUser(null)
-}
+const handleLogout = (event) => {
  
+  try {
+    window.localStorage.clear()
+    blogService.setToken(null)
+    setUser(null)
+    //window.localStorage.removeItem('login');
+   setSuccessMessage('Successfully logged out');
+    setTimeout(() => {
+      setSuccessMessage(null)
+    }, 5000)
+  } catch (error) {
+    setErrorMessage(`Something went wrong  ${error}`)
+    
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 5000)
+  }
+}
+const handleLikeUpdate = blogId =>  async event => {
+  event.preventDefault();
+  try {
+
+    //use find method to get a current clicked blog
+    //
+    let foundBlog =  await blogs.find(blog => blog.id === blogId) 
+    console.log( "found blog", foundBlog)
+    const newLike = foundBlog.likes + 1
+    let blogToUpdate = { ...foundBlog,
+                        likes: newLike 
+                      }
+
+    const blogUpdated = await  blogService.update(blogId, blogToUpdate)
+    console.log( "updated blog", blogUpdated)
+    setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
+    setSuccessMessage(
+       `Blog ${foundBlog.title} written by ${foundBlog.author} liked!`
+       );
+    setTimeout(() => {
+      setSuccessMessage(null)
+    }, 5000)
+  } catch (error) {
+    setErrorMessage(`Something went wrong  ${error}`)
+    
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 5000)
+    
+    
+  }
+}
+
+const handleDelete = blogId =>  async event => {
+  event.preventDefault();
+   //use find method to get a current clicked blog
+  let blogToDelete =  await blogs.find(blog => blog.id === blogId) 
+  console.log( "found blog", blogId)
+
+  // Get a new blog list
+  // exclude a blog to be deleted
+  const newBlogList =  await blogs.filter(blog => blog.id !== blogId)
+
+  let okCancel = window.confirm(
+    `Remove blog ${blogToDelete.title} by ${blogToDelete.author}?`
+    )
+  if (okCancel) {
+    try {
+ 
+      const deletedBlog = await  blogService.remove(blogId)
+      console.log( "updated blog", deletedBlog)
+      setBlogs(newBlogList)
+      setSuccessMessage(
+         `Blog entry ${blogToDelete.title} deleted`
+         );
+      setTimeout(() => {
+        setSuccessMessage(null)
+      }, 5000)
+    } catch (error) {
+      setErrorMessage(`Something went wrong  ${error}`)
+      
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+      
+      
+    }
+  }
+}
   
+
 
   return (
     <div>
@@ -192,7 +268,10 @@ const handleLogout = async (event) => {
                         </Togglable>
                        
                         <div>
-                         <BlogList blogs = {blogs} />
+                         <BlogList 
+                              blogs = {blogs}
+                              handleLike = {handleLikeUpdate}
+                         />
                         </div>
                       </div>
                 }

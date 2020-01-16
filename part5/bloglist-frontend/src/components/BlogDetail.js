@@ -1,8 +1,9 @@
 import React, { useState, useImperativeHandle } from 'react'
-
 import Button from './Button'
-const BlogDetail = React.forwardRef((props, ref) => {
-  const {blog} = props
+
+
+const BlogDetail = React.forwardRef(({blog, handleLikeChange}, ref) => {
+  //const {blog} = props
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -12,11 +13,6 @@ const BlogDetail = React.forwardRef((props, ref) => {
   }
     const [visible, setVisible] = useState(false)
 
-  /* title: "Globaali Trendi usa vs iran ", 
-  author: "Matti Luukkainen", url:
-   "www.maailman.fi/iranusa",
-    likes: 0
-    */
     const toggleVisibility = () => {
       setVisible(!visible)
     }
@@ -26,7 +22,6 @@ const BlogDetail = React.forwardRef((props, ref) => {
           toggleVisibility
         }
       })
-
   
     const showStyle = { display: visible ? '' : 'none' }
   
@@ -40,7 +35,7 @@ const BlogDetail = React.forwardRef((props, ref) => {
                     <a href={blog.url}>{blog.url}</a>
                   </p>
                   <p>
-                      {blog.likes} likes <button>like</button>
+                      {blog.likes} likes <Button onClick={handleLikeChange} text = "like"/>
                     </p>
                   <p>
                     added by <span>{blog.author}</span>

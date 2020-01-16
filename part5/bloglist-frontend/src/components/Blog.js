@@ -1,6 +1,6 @@
-import React, { useState, useImperativeHandle } from 'react'
+import React from 'react'
 import BlogDetail from './BlogDetail'
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleLike }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -23,8 +23,10 @@ const Blog = ({ blog }) => {
         </div>
 
         <BlogDetail
-            ref={blogRef}
             blog={blog}
+            ref={blogRef}
+            handleLikeChange = {handleLike}
+            
           />       
    </div>
   )
