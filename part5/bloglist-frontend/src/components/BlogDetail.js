@@ -2,8 +2,9 @@ import React, { useState, useImperativeHandle } from 'react'
 import Button from './Button'
 
 
-const BlogDetail = React.forwardRef(({blog, handleLikeChange}, ref) => {
-  //const {blog} = props
+const BlogDetail = React.forwardRef((props, ref) => {
+  const {blog, handleLikeChange, handleDelete} = props
+  
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -40,6 +41,7 @@ const BlogDetail = React.forwardRef(({blog, handleLikeChange}, ref) => {
                   <p>
                     added by <span>{blog.author}</span>
                   </p>
+                  <Button onClick={handleDelete} text = "remove"/>
           </div>
       </div>
     )

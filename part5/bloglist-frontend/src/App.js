@@ -45,6 +45,35 @@ function App() {
     }
   }, [])
 
+// handle login
+  const handleLogin = async (event) => {
+    event.preventDefault()
+    try {
+      const user = await loginService.login({
+        username, password,
+      })
+      console.log("user services", user)
+
+      window.localStorage.setItem(
+        'loggedBlogListappUser', JSON.stringify(user)
+      ) 
+
+      blogService.setToken(user.token)
+      setUser(user)
+      setUsername('')
+      setPassword('')
+      
+    } catch (exception) {
+      setErrorMessage(` Wrong username or password`)
+    
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+  
+    }
+   
+  }
+
 // handle UsernameChange
 const handleUsernameChange = (event) => {
   console.log("Handle Name Change",event.target.value);
@@ -78,32 +107,6 @@ const handleUrlChange = (event) => {
 
 
 
-const handleLogin = async (event) => {
-    event.preventDefault()
-    try {
-      const user = await loginService.login({
-        username, password,
-      })
-
-      window.localStorage.setItem(
-        'loggedBlogListappUser', JSON.stringify(user)
-      ) 
-
-      blogService.setToken(user.token)
-      setUser(user)
-      setUsername('')
-      setPassword('')
-      
-    } catch (exception) {
-      setErrorMessage(` Wrong username or password`)
-    
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-  
-    }
-   
-  }
 
 // create new blog
 const handleAddBlog = async (event) => {
@@ -173,7 +176,7 @@ const handleLikeUpdate = blogId =>  async event => {
     let blogToUpdate = { ...foundBlog,
                         likes: newLike 
                       }
-
+    console.log( "updated blog", blogToUpdate)
     const blogUpdated = await  blogService.update(blogId, blogToUpdate)
     console.log( "updated blog", blogUpdated)
     setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
@@ -198,11 +201,15 @@ const handleDelete = blogId =>  async event => {
   event.preventDefault();
    //use find method to get a current clicked blog
   let blogToDelete =  await blogs.find(blog => blog.id === blogId) 
-  console.log( "found blog", blogId)
+  console.log( "found blog:", blogToDelete )
+  console.log( "found blog id: ", blogToDelete.id )
+  console.log( "found blog blogId: ", blogId)
+
 
   // Get a new blog list
   // exclude a blog to be deleted
   const newBlogList =  await blogs.filter(blog => blog.id !== blogId)
+  console.log( "new blog list: ", newBlogList)
 
   let okCancel = window.confirm(
     `Remove blog ${blogToDelete.title} by ${blogToDelete.author}?`
@@ -214,8 +221,8 @@ const handleDelete = blogId =>  async event => {
       console.log( "updated blog", deletedBlog)
       setBlogs(newBlogList)
       setSuccessMessage(
-         `Blog entry ${blogToDelete.title} deleted`
-         );
+         `Blog post ${blogToDelete.title} deleted`
+         )
       setTimeout(() => {
         setSuccessMessage(null)
       }, 5000)
@@ -271,6 +278,7 @@ const handleDelete = blogId =>  async event => {
                          <BlogList 
                               blogs = {blogs}
                               handleLike = {handleLikeUpdate}
+                              handleDelete = {handleDelete}
                          />
                         </div>
                       </div>

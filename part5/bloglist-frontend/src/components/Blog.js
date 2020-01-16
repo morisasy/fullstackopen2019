@@ -1,6 +1,6 @@
 import React from 'react'
 import BlogDetail from './BlogDetail'
-const Blog = ({ blog, handleLike }) => {
+const Blog = ({ blog, handleLike , handleDelete}) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -26,6 +26,7 @@ const Blog = ({ blog, handleLike }) => {
             blog={blog}
             ref={blogRef}
             handleLikeChange = {handleLike}
+            handleDelete = {handleDelete}
             
           />       
    </div>
