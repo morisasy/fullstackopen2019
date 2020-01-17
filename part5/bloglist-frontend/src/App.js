@@ -23,7 +23,7 @@ function App() {
   const [title, setTitle] =  useState('')
   const [author, setAuthor] =  useState('')
   const [url, setUrl] =  useState('')
-  // AddblogForm ref
+  // create AddblogForm reference
   const addBlogFormRef = React.createRef()
 
   // get all blog data from server
@@ -121,13 +121,14 @@ const handleAddBlog = async (event) => {
       const newBlog = {
         title: title,
         author: author,
-        url: url
+        url: url,
       }
       console.log("new object to add: ", JSON.stringify(newBlog))
       const blogCreated = await blogService.create(newBlog)
       //setBlogs(blogs.concat(blogCreated))
+      console.log("new object to add: ", JSON.stringify(blogCreated))
       setBlogs([...blogs, blogCreated])
-      setSuccessMessage(`a new blog added: ${title} by ${author}`)
+      setSuccessMessage(`a new blog added: ${title} by ${user.name}`)
       
       setTitle('')
       setAuthor('')

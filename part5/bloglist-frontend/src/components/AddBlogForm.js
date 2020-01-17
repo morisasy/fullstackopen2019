@@ -10,7 +10,7 @@ const AddBlogFrom = (props) =>{
           handleAuthorChange,
           url,
           handleUrlChange} = props;
-  // const [blogFormVisible, setBlogFormVisible] = useState(false)
+
    return(
         <div>
              <form onSubmit={handleAddBlog}>

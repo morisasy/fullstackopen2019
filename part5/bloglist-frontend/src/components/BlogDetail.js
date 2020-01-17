@@ -25,9 +25,10 @@ const BlogDetail = React.forwardRef((props, ref) => {
       })
   
     const showStyle = { display: visible ? '' : 'none' }
+    console.log("blog detail: ", blog)
   
     return (
-      <div>
+      <>
           <div style={showStyle} className={blogStyle} >
                   <p>
                     {blog.title}
@@ -39,11 +40,11 @@ const BlogDetail = React.forwardRef((props, ref) => {
                       {blog.likes} likes <Button onClick={handleLikeChange} text = "like"/>
                     </p>
                   <p>
-                    added by <span>{blog.author}</span>
+                    added by <span>{blog.user.name}</span>
                   </p>
                   <Button onClick={handleDelete} text = "remove"/>
           </div>
-      </div>
+      </>
     )
   })
   
