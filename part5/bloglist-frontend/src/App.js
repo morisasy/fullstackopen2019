@@ -12,6 +12,10 @@ import loginService from './services/login';
 import BlogList from "./components/BlogList";
 
 
+const sortByLikes = (blogsToSort) =>{
+  blogsToSort.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
+} 
+
 function App() {
 
   const [blogs, setBlogs] = useState([])
@@ -174,7 +178,8 @@ const handleLikeUpdate = blogId =>  async event => {
     console.log( "found blog", foundBlog)
     const newLike = foundBlog.likes + 1
     let blogToUpdate = { ...foundBlog,
-                        likes: newLike 
+                        likes: newLike,
+                        user: user.id
                       }
     console.log( "updated blog", blogToUpdate)
     const blogUpdated = await  blogService.update(blogId, blogToUpdate)
