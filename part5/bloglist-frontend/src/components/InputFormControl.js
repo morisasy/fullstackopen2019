@@ -1,4 +1,4 @@
-const Input = (props) => {
+const InputFormControl = (props) => {
     
     return (  
             <div className="form-group">
@@ -16,4 +16,4 @@ const Input = (props) => {
 )
 }
 
-export default Input;
+export default InputFormControl;

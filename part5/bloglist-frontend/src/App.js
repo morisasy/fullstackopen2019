@@ -12,10 +12,6 @@ import loginService from './services/login';
 import BlogList from "./components/BlogList";
 
 
-const sortByLikes = (blogsToSort) =>{
-  blogsToSort.sort((a, b) => (a.likes > b.likes) ? 1 : -1)
-} 
-
 function App() {
 
   const [blogs, setBlogs] = useState([])
@@ -35,7 +31,9 @@ function App() {
   useEffect(() => {
     blogService
       .getAll().then(initialBlog => {
+       // let sortedBlog = sortByLikes(initialBlog)
         setBlogs(initialBlog)
+       // setBlogs(sortedBlog)
       })
   }, [])
   console.log("initial blogs", blogs)
