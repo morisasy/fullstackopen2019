@@ -10,6 +10,7 @@ import SuccessNotification from './components/SuccessNotification';
 import blogService from './services/blogs';
 import loginService from './services/login';
 import BlogList from "./components/BlogList";
+import DisplayBlog from "./components/DisplayBlog";
 
 
 function App() {
@@ -279,7 +280,7 @@ const handleDelete = blogId =>  async event => {
                         </Togglable>
                        
                         <div>
-                         <BlogList 
+                         <DisplayBlog
                               blogs = {blogs}
                               handleLike = {handleLikeUpdate}
                               handleDelete = {handleDelete}

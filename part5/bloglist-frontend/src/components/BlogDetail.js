@@ -29,10 +29,8 @@ const BlogDetail = React.forwardRef((props, ref) => {
   
     return (
       <>
-          <div style={showStyle} className={blogStyle} >
-                  <p>
-                    {blog.title}
-                  </p>
+          <div style={showStyle} className="blog-detail" >
+                  
                   <p>
                     <a href={blog.url}>{blog.url}</a>
                   </p>
@@ -47,5 +45,11 @@ const BlogDetail = React.forwardRef((props, ref) => {
       </>
     )
   })
-  
-  export default BlogDetail
+  // authenticated: React.PropTypes.bool,
+
+BlogDetail.propTypes = {
+  blog:React.PropTypes.object.isRequired,
+  handleLikeChange: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
+}
+export default BlogDetail

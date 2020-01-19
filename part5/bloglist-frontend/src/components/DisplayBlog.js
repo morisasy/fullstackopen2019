@@ -1,6 +1,6 @@
 import React from 'react'
 import Blog from './Blog';
-const BlogList = ({blogs, handleLike, handleDelete}) => {
+const DisplayBlog = ({blogs, handleLike, handleDelete}) => {
 
   return (
     <div>
@@ -11,8 +11,13 @@ const BlogList = ({blogs, handleLike, handleDelete}) => {
                               handleDelete = {handleDelete(blog.id)}
                         />)}
     </div>
-     )
+     )    
 
 }
 
-export default BlogList
+BlogList.propTypes = {
+  blogs:React.PropTypes.object,
+  handleLike: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
+}
+export default DisplayBlog

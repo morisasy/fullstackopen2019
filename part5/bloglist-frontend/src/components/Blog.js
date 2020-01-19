@@ -19,7 +19,9 @@ const Blog = ({ blog, handleLike , handleDelete}) => {
    
      <div>
         <div style={blogStyle}  onClick={handleToggleVisibility}  >
-                    {blog.title} {blog.author}
+                   
+                    <span className="title">{blog.title}</span> &nbsp;
+                    <span className="author">{blog.author}</span>
         </div>
 
         <BlogDetail
@@ -33,7 +35,14 @@ const Blog = ({ blog, handleLike , handleDelete}) => {
   )
 
 }
-  
 
+//  {blog.title} {blog.author},
+
+Blog.propTypes = {
+  blog:React.PropTypes.object.isRequired,
+  handleLike: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
+}
+  
 
 export default Blog

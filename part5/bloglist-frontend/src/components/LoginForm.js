@@ -41,4 +41,3 @@ LoginForm.propTypes = {
   handlePasswordChange: PropTypes.func.isRequired
 }
 export default LoginForm
-
