@@ -4,7 +4,7 @@ import { render, fireEvent } from '@testing-library/react'
 import { prettyDOM } from '@testing-library/dom'
 import SimpleBlog from '../components/SimpleBlog'
 
-// CI=true npm test
+// CI=true npm test -- --coverage
 const blog = {
   title: 'Record number of human trafic in Finland',
   author: 'Risasi',
@@ -25,14 +25,14 @@ describe('SimpleBlog', () => {
   // print html rendered to console
   // component.debug()
   test('render title', () => {
-    const div = component.container.querySelector(".title")
-    expect(div).toHaveTextContent(blog.title)
+    const divTitle = component.container.querySelector(".title")
+    expect(divTitle).toHaveTextContent(blog.title)
 
     const element = component.getByText(
       'Record number of human trafic in Finland'
     )
     expect(element).toBeDefined()
-    const li = component.container.querySelector('div')
+    const div = component.container.querySelector('div')
   
     console.log(prettyDOM(div))
   })

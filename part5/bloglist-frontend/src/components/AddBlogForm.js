@@ -12,9 +12,9 @@ const AddBlogFrom = (props) =>{
           handleUrlChange} = props;
 
    return(
-        <div>
+        <div className = "form-group">
              <form onSubmit={handleAddBlog}>
-                <div>
+                      <div className = "form-group-control">
                         Title: <input 
                                     value={title} 
                                     onChange={handleTitleChange}
@@ -22,7 +22,7 @@ const AddBlogFrom = (props) =>{
                                     required
                                     />
                         </div>
-                        <div>
+                        <div className = "form-group-control">
                         Author: <input 
                                     value={author} 
                                     onChange={handleAuthorChange}
@@ -30,7 +30,7 @@ const AddBlogFrom = (props) =>{
                                     required
                                     />
                         </div>
-                        <div>
+                        <div className = "form-group-control">
                         url: <input 
                                     value={url} 
                                     onChange={handleUrlChange}
@@ -38,7 +38,7 @@ const AddBlogFrom = (props) =>{
                                     required
                                     />
                         </div>
-                        <div>
+                        <div className = "form-group-control">
                         <button type="submit">Create</button>
                         </div>
             </form>

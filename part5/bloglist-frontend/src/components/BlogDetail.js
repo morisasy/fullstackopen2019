@@ -46,10 +46,9 @@ const BlogDetail = React.forwardRef((props, ref) => {
     )
   })
   // authenticated: React.PropTypes.bool,
-
-BlogDetail.propTypes = {
-  blog:React.PropTypes.object.isRequired,
-  handleLikeChange: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired
-}
+  BlogDetail.propTypes = {
+    blog:React.PropTypes.object.isRequired,
+    handleLikeChange: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired
+  }
 export default BlogDetail

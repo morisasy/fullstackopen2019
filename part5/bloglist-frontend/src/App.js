@@ -9,7 +9,6 @@ import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
 import blogService from './services/blogs';
 import loginService from './services/login';
-import BlogList from "./components/BlogList";
 import DisplayBlog from "./components/DisplayBlog";
 
 

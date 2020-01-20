@@ -37,5 +37,4 @@
     "@testing-library/react": "^9.4.0",
     "eslint-plugin-jest": "^23.6.0"
   }
-
 }

@@ -11,7 +11,7 @@ const LoginForm = (props) => {
 
   return (  
         <form onSubmit={handleLogin}>
-                <div className ="form-group">
+                <div className ="form-group-control">
                     username: 
                         <input
                           type="text"
@@ -20,7 +20,7 @@ const LoginForm = (props) => {
                           onChange={handleUsernameChange}
                         />
                 </div>
-                <div className ="form-group">
+                <div className ="form-group-control">
                     password: 
                         <input
                           type="password"
@@ -29,7 +29,7 @@ const LoginForm = (props) => {
                           onChange={handlePasswordChange}
                       />
                 </div>
-                <button type="submit">login</button>
+                <button type="submit" clsssName ="form-group-login">login</button>
         </form>
   )
 }

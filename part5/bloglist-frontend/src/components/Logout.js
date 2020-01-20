@@ -7,6 +7,7 @@ const Logout = ({handleLogout }) => {
         logout
       </button>
     </div>
-};
+  )
+}
 
 export default Logout;
