@@ -9,7 +9,7 @@ import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
 import blogService from './services/blogs';
 import loginService from './services/login';
-import DisplayBlog from "./components/DisplayBlog";
+import BlogList from "./components/BlogList";
 
 
 function App() {
@@ -245,21 +245,20 @@ const handleDelete = blogId =>  async event => {
 
 
   return (
-    <div>
+    <div className = "wrapper">
+        <ErrorNotification message={errorMessage}/>
     
         {user === null ?
-              <div>
-              <h2>Log in to application</h2>
-              <ErrorNotification message={errorMessage}/>
-              <LoginForm
-                  handleLogin={handleLogin}
-                  username={username}
-                  handleUsernameChange={handleUsernameChange}
-                  password={password}
-                  handlePasswordChange={handlePasswordChange}
-              />
+              <div className = "wrapper-box" >
+                    <LoginForm
+                        handleLogin={handleLogin}
+                        username={username}
+                        handleUsernameChange={handleUsernameChange}
+                        password={password}
+                        handlePasswordChange={handlePasswordChange}
+                    />
             </div> :
-                      <div>
+                      <div className = "wrapper-box" >
                         <h2>Blogs</h2>
                         
                         <SuccessNotification message={successMessage}/>
@@ -278,8 +277,8 @@ const handleDelete = blogId =>  async event => {
                             />
                         </Togglable>
                        
-                        <div>
-                         <DisplayBlog
+                        <div className = "wrapper-box-container" >
+                         <BlogList
                               blogs = {blogs}
                               handleLike = {handleLikeUpdate}
                               handleDelete = {handleDelete}

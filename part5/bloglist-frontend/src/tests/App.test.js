@@ -1,30 +1,35 @@
 import React from "react"
 import "@testing-library/jest-dom/extend-expect"
-import { render, waitForElement } from "@testing-library/react"
+import { render, waitForElement, cleanup } from "@testing-library/react"
 import { prettyDOM } from '@testing-library/dom'
+
 import App from "../App"
-
-jest.mock("../services/blogs")
-
+/*
 const user = {
-    username: 'tester',
+      username: "mluukkai",
+      token: '1231231214',
+      name: "Matti Luukkainen"
+   }
+const user = {
+    username: "mluukkai",
     token: '1231231214',
     name: 'Donald Tester'
+  
 }
+*/
 
 describe("<App />", () => {
-
+  afterEach(cleanup)
   test("if nobody login, blogs are not rendered", async () => {
     const component = render(
-        <App />
-      )
+      <App />
+    )
+    component.rerender(<App />)
 
-    await waitForElement(() => component.getByText("login"))
 
-    const element = component.getByText(
-        'Log in to application'
-      )
-    expect(element).toBeDefined()
+    await waitForElement(
+      () => component.getByText("login")
+    )
 
     const divButton = component.container.querySelector('.form-group-login')
     expect(divButton).toBeDefined()
@@ -35,6 +40,11 @@ describe("<App />", () => {
   })
 
   test("When user is login, blogs are rendered", async () => {
+    const user = {
+      username: "mluukkai",
+      token: '1231231214',
+      name: 'Donald Tester'  
+    }
 
     
     localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
@@ -47,8 +57,9 @@ describe("<App />", () => {
         () =>component.container.querySelector('.blog-detail')
       )
 
-
-    const divForm = component.container.querySelector(".form-group");
+    expect(component.container.querySelector(".blog-detail")).toBeDefined()
+   
+    const divForm = component.container.querySelector(".form-group")
     expect(divForm).toBeDefined()
 
     const blogs = component.container.querySelectorAll('.blog-detail')
@@ -61,6 +72,7 @@ describe("<App />", () => {
 
     const formDetail = component.container.querySelector('.form-group')
     console.log(prettyDOM(formDetail))
+   
     
 
   })

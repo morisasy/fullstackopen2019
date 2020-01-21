@@ -9,7 +9,7 @@ const AddBlogFrom = (props) =>{
           author,
           handleAuthorChange,
           url,
-          handleUrlChange} = props;
+          handleUrlChange} = props
 
    return(
         <div className = "form-group">

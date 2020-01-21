@@ -36,13 +36,12 @@ const Blog = ({ blog, handleLike , handleDelete}) => {
 
 }
 
-//  {blog.title} {blog.author},
-
+/*
 Blog.propTypes = {
   blog:React.PropTypes.object.isRequired,
   handleLike: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired
 }
-  
+  */
 
 export default Blog

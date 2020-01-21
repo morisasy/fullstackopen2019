@@ -9,7 +9,9 @@ const LoginForm = (props) => {
               password,
               handlePasswordChange}= props
 
-  return (  
+  return ( 
+    <>
+        <h2>Log in to application</h2> 
         <form onSubmit={handleLogin}>
                 <div className ="form-group-control">
                     username: 
@@ -31,6 +33,7 @@ const LoginForm = (props) => {
                 </div>
                 <button type="submit" clsssName ="form-group-login">login</button>
         </form>
+    </>
   )
 }
 LoginForm.propTypes = {

@@ -5,13 +5,7 @@ import Button from './Button'
 const BlogDetail = React.forwardRef((props, ref) => {
   const {blog, handleLikeChange, handleDelete} = props
   
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
+  
     const [visible, setVisible] = useState(false)
 
     const toggleVisibility = () => {
@@ -45,10 +39,11 @@ const BlogDetail = React.forwardRef((props, ref) => {
       </>
     )
   })
-  // authenticated: React.PropTypes.bool,
+/*
   BlogDetail.propTypes = {
     blog:React.PropTypes.object.isRequired,
     handleLikeChange: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired
   }
+  */
 export default BlogDetail
