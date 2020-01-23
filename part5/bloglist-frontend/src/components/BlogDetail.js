@@ -1,9 +1,11 @@
 import React, { useState, useImperativeHandle } from 'react'
+import PropTypes from "prop-types"
 import Button from './Button'
 
 
-const BlogDetail = React.forwardRef((props, ref) => {
-  const {blog, handleLikeChange, handleDelete} = props
+const BlogDetail = React.forwardRef(({blog, handleLikeChange, handleDelete}, ref) => {
+  //const {blog, handleLikeChange, handleDelete} = props
+  console.log("blog visibility: ", blog)
   
   
     const [visible, setVisible] = useState(false)
@@ -39,11 +41,11 @@ const BlogDetail = React.forwardRef((props, ref) => {
       </>
     )
   })
-/*
+//  blog:React.PropTypes.object.isRequired,
   BlogDetail.propTypes = {
-    blog:React.PropTypes.object.isRequired,
+   
     handleLikeChange: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired
   }
-  */
+
 export default BlogDetail

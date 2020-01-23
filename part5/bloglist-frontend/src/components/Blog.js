@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from "prop-types"
 import BlogDetail from './BlogDetail'
 const Blog = ({ blog, handleLike , handleDelete}) => {
   const blogStyle = {
@@ -17,8 +18,8 @@ const Blog = ({ blog, handleLike , handleDelete}) => {
 
   return (
    
-     <div>
-        <div style={blogStyle}  onClick={handleToggleVisibility}  >
+     <div className ="blog">
+        <div style={blogStyle}  onClick={handleToggleVisibility} className="blog-user" >
                    
                     <span className="title">{blog.title}</span> &nbsp;
                     <span className="author">{blog.author}</span>
@@ -26,9 +27,9 @@ const Blog = ({ blog, handleLike , handleDelete}) => {
 
         <BlogDetail
             blog={blog}
-            ref={blogRef}
             handleLikeChange = {handleLike}
             handleDelete = {handleDelete}
+            ref={blogRef}
             
           />       
    </div>
@@ -36,12 +37,12 @@ const Blog = ({ blog, handleLike , handleDelete}) => {
 
 }
 
-/*
+//   blog:React.PropTypes.object.isRequired,
 Blog.propTypes = {
-  blog:React.PropTypes.object.isRequired,
+
   handleLike: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired
 }
-  */
+  
 
 export default Blog

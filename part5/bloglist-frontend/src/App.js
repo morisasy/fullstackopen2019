@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import './App.css';
-import AddBlogForm from './components/AddBlogForm';
 import Button from './components/Button';
 import Footer from './components/Footer';
 import LoginForm from './components/LoginForm';
+import AddBlogForm from './components/AddBlogForm';
 import Togglable from './components/Togglable';
 import ErrorNotification from './components/ErrorNotification';
 import SuccessNotification from './components/SuccessNotification';
@@ -26,8 +26,22 @@ function App() {
   // create AddblogForm reference
   const addBlogFormRef = React.createRef()
 
+
+
   // get all blog data from server
   // Initilize blogs state
+
+ 
+  /*
+ const fetchBlogs = async () => {
+    const blogs = await blogService.getAll();
+    setBlogs(blogs);
+  }
+
+  useEffect(() => {
+    fetchBlogs()
+  }, [])
+  */
   useEffect(() => {
     blogService
       .getAll().then(initialBlog => {
@@ -36,6 +50,7 @@ function App() {
        // setBlogs(sortedBlog)
       })
   }, [])
+  
   console.log("initial blogs", blogs)
 // get user information from localStorage
   useEffect(() => {
@@ -52,7 +67,8 @@ function App() {
     event.preventDefault()
     try {
       const user = await loginService.login({
-        username, password,
+        username,
+        password
       })
       console.log("user services", user)
 
@@ -150,6 +166,12 @@ const handleAddBlog = async (event) => {
 //logout functionality
 const handleLogout = (event) => {
  
+    
+ /*
+ window.localStorage.clear()
+  setUser(null)
+    blogService.setToken(null)
+  */
   try {
     window.localStorage.clear()
     blogService.setToken(null)
@@ -166,6 +188,7 @@ const handleLogout = (event) => {
       setErrorMessage(null)
     }, 5000)
   }
+
 }
 const handleLikeUpdate = blogId =>  async event => {
   event.preventDefault();
@@ -241,55 +264,65 @@ const handleDelete = blogId =>  async event => {
     }
   }
 }
-  
+  const loginForm = () =>{
+    return (
+      <div className = "wrapper-box" >
+                      <LoginForm
+                          handleLogin={handleLogin}
+                          username={username}
+                          handleUsernameChange={handleUsernameChange}
+                          password={password}
+                          handlePasswordChange={handlePasswordChange}
+                      />
+      </div> 
+    )
+  }
+
+  const display = () =>{
+    if (blogs.length){
+
+   
+    return(
+      <div className = "wrapper-box" >
+                          <h2>Blogs</h2>
+                          
+                          <SuccessNotification message={successMessage}/>
+                          <p>{user.name} logged in
+                            <Button onClick={handleLogout} text = "Logout"/>
+                          </p>
+                          <Togglable buttonLabel="create" ref ={addBlogFormRef} >
+                              <AddBlogForm 
+                                handleAddBlog={handleAddBlog}
+                                title={title}
+                                handleTitleChange={handleTitleChange}
+                                author={author}
+                                handleAuthorChange={handleAuthorChange}
+                                url={url}
+                                handleUrlChange={handleUrlChange}               
+                              />
+                          </Togglable>
+
+                          <div className = "wrapper-box-container" >
+                            <BlogList
+                                  blogs = {blogs}
+                                  handleLike = {handleLikeUpdate}
+                                  handleDelete = {handleDelete}
+                            />
+                          </div>
+                    </div>
+    )
+  }
+  }
 
 
   return (
     <div className = "wrapper">
         <ErrorNotification message={errorMessage}/>
-    
-        {user === null ?
-              <div className = "wrapper-box" >
-                    <LoginForm
-                        handleLogin={handleLogin}
-                        username={username}
-                        handleUsernameChange={handleUsernameChange}
-                        password={password}
-                        handlePasswordChange={handlePasswordChange}
-                    />
-            </div> :
-                      <div className = "wrapper-box" >
-                        <h2>Blogs</h2>
-                        
-                        <SuccessNotification message={successMessage}/>
-                        <p>{user.name} logged in
-                          <Button onClick={handleLogout} text = "Logout"/>
-                        </p>
-                        <Togglable buttonLabel="create" ref ={addBlogFormRef} >
-                            <AddBlogForm 
-                              handleAddBlog={handleAddBlog}
-                              title={title}
-                              handleTitleChange={handleTitleChange}
-                              author={author}
-                              handleAuthorChange={handleAuthorChange}
-                              url={url}
-                              handleUrlChange={handleUrlChange}               
-                            />
-                        </Togglable>
-                       
-                        <div className = "wrapper-box-container" >
-                         <BlogList
-                              blogs = {blogs}
-                              handleLike = {handleLikeUpdate}
-                              handleDelete = {handleDelete}
-                         />
-                        </div>
-                      </div>
-                }
+        {user? display(): loginForm()}
                
         <Footer />
    </div>
-  );
+  )
 }
 
 export default App;

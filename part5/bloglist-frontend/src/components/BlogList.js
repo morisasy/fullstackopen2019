@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from "prop-types"
 import Blog from './Blog';
 const BlogList = ({blogs, handleLike, handleDelete}) => {
-
+console.log("blog list component: blogs: ", blogs)
   return (
     <div>
       {blogs.sort((a, b) => b.likes - a.likes).map(blog =><Blog 
@@ -14,11 +15,10 @@ const BlogList = ({blogs, handleLike, handleDelete}) => {
      )    
 
 }
-/*
+// blogs:React.PropTypes.object.isRequired,
 BlogList.propTypes = {
-  blogs:React.PropTypes.object.isRequired,
+  
   handleLike: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired
 }
-*/
 export default BlogList

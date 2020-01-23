@@ -47,13 +47,13 @@ const AddBlogFrom = (props) =>{
 }
 
 AddBlogFrom.propTypes = {
-    handleAddBlog: PropTypes.func,
-    title: PropTypes.string,
-    handleTitleChange: PropTypes.func,
-    author: PropTypes.string,
-    handleAuthorChangee: PropTypes.func,
-    handleUrlChange: PropTypes.func,
-    url: PropTypes.string
+    handleAddBlog: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+    handleTitleChange: PropTypes.func.isRequired,
+    author: PropTypes.string.isRequired,
+    handleAuthorChange: PropTypes.func.isRequired,
+    handleUrlChange: PropTypes.func.isRequired,
+    url: PropTypes.string.isRequired
   }
 
 export default AddBlogFrom;
