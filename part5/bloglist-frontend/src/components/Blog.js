@@ -27,7 +27,7 @@ const Blog = ({ blog, handleLike , handleDelete}) => {
 
         <BlogDetail
             blog={blog}
-            handleLikeChange = {handleLike}
+            handleLike = {handleLike}
             handleDelete = {handleDelete}
             ref={blogRef}
             
@@ -39,7 +39,6 @@ const Blog = ({ blog, handleLike , handleDelete}) => {
 
 //   blog:React.PropTypes.object.isRequired,
 Blog.propTypes = {
-
   handleLike: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired
 }

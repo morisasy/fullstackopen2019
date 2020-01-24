@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react"
-import './App.css';
-import Button from './components/Button';
-import Footer from './components/Footer';
-import LoginForm from './components/LoginForm';
-import AddBlogForm from './components/AddBlogForm';
-import Togglable from './components/Togglable';
-import ErrorNotification from './components/ErrorNotification';
-import SuccessNotification from './components/SuccessNotification';
-import blogService from './services/blogs';
-import loginService from './services/login';
-import BlogList from "./components/BlogList";
+import './App.css'
+import Button from './components/Button'
+import Footer from './components/Footer'
+import LoginForm from './components/LoginForm'
+import AddBlogForm from './components/AddBlogForm'
+import Togglable from './components/Togglable'
+import ErrorNotification from './components/ErrorNotification'
+import SuccessNotification from './components/SuccessNotification'
+import BlogList from "./components/BlogList"
+
+import blogService from './services/blogs'
+import loginService from './services/login'
+
+import { useField } from "./hooks"
 
 
 function App() {
 
   const [blogs, setBlogs] = useState([])
+  const [user, setUser] =  useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
-  const [user, setUser] =  useState('')
-  const [title, setTitle] =  useState('')
-  const [author, setAuthor] =  useState('')
-  const [url, setUrl] =  useState('')
+
+  const username = useField("username")
+  const password = useField("password")
+  const title = useField("text")
+  const author = useField("text")
+  const url = useField("text")
   // create AddblogForm reference
   const addBlogFormRef = React.createRef()
 
@@ -67,8 +71,8 @@ function App() {
     event.preventDefault()
     try {
       const user = await loginService.login({
-        username,
-        password
+        username: username.inputProps.value,
+        password: password.inputProps.value
       })
       console.log("user services", user)
 
@@ -78,8 +82,8 @@ function App() {
 
       blogService.setToken(user.token)
       setUser(user)
-      setUsername('')
-      setPassword('')
+      username.reset('')
+      password.reset('')
       
     } catch (exception) {
       setErrorMessage(` Wrong username or password`)
@@ -91,7 +95,7 @@ function App() {
     }
    
   }
-
+/*
 // handle UsernameChange
 const handleUsernameChange = (event) => {
   console.log("Handle Name Change",event.target.value);
@@ -122,7 +126,7 @@ const handleUrlChange = (event) => {
   setUrl(event.target.value);
 };
 
-
+*/
 
 
 
@@ -135,20 +139,20 @@ const handleAddBlog = async (event) => {
 
     try {
       const newBlog = {
-        title: title,
-        author: author,
-        url: url,
+        title: title.inputProps.value,
+        author: author.inputProps.value,
+        url: url.inputProps.value,
       }
       console.log("new object to add: ", JSON.stringify(newBlog))
       const blogCreated = await blogService.create(newBlog)
       //setBlogs(blogs.concat(blogCreated))
       console.log("new object to add: ", JSON.stringify(blogCreated))
       setBlogs([...blogs, blogCreated])
-      setSuccessMessage(`a new blog added: ${title} by ${user.name}`)
+      setSuccessMessage(`a new blog added: ${title.inputProps.value} by ${user.name}`)
       
-      setTitle('')
-      setAuthor('')
-      setUrl('')
+      title.reset('')
+      author.reset('')
+      url.reset('')
       // Notification displays only 5s
       setTimeout(() => {
         setSuccessMessage(null)
@@ -270,9 +274,7 @@ const handleDelete = blogId =>  async event => {
                       <LoginForm
                           handleLogin={handleLogin}
                           username={username}
-                          handleUsernameChange={handleUsernameChange}
                           password={password}
-                          handlePasswordChange={handlePasswordChange}
                       />
       </div> 
     )
@@ -294,11 +296,8 @@ const handleDelete = blogId =>  async event => {
                               <AddBlogForm 
                                 handleAddBlog={handleAddBlog}
                                 title={title}
-                                handleTitleChange={handleTitleChange}
                                 author={author}
-                                handleAuthorChange={handleAuthorChange}
-                                url={url}
-                                handleUrlChange={handleUrlChange}               
+                                url={url}              
                               />
                           </Togglable>
 

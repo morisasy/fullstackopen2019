@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import Button from './Button'
 
 
-const BlogDetail = React.forwardRef(({blog, handleLikeChange, handleDelete}, ref) => {
+const BlogDetail = React.forwardRef(({blog, handleLike, handleDelete}, ref) => {
   //const {blog, handleLikeChange, handleDelete} = props
   console.log("blog visibility: ", blog)
   
@@ -31,7 +31,7 @@ const BlogDetail = React.forwardRef(({blog, handleLikeChange, handleDelete}, ref
                     <a href={blog.url}>{blog.url}</a>
                   </p>
                   <p>
-                      {blog.likes} likes <Button onClick={handleLikeChange} text = "like"/>
+                      {blog.likes} likes <Button onClick={handleLike} text = "like"/>
                     </p>
                   <p>
                     added by <span>{blog.user.name}</span>
@@ -41,9 +41,8 @@ const BlogDetail = React.forwardRef(({blog, handleLikeChange, handleDelete}, ref
       </>
     )
   })
-//  blog:React.PropTypes.object.isRequired,
+
   BlogDetail.propTypes = {
-   
     handleLikeChange: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired
   }

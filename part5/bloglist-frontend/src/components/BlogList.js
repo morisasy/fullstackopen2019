@@ -15,7 +15,7 @@ console.log("blog list component: blogs: ", blogs)
      )    
 
 }
-// blogs:React.PropTypes.object.isRequired,
+
 BlogList.propTypes = {
   
   handleLike: PropTypes.func.isRequired,
