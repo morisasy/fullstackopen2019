@@ -9,15 +9,16 @@ import ErrorNotification from './components/ErrorNotification'
 import SuccessNotification from './components/SuccessNotification'
 import BlogList from "./components/BlogList"
 
-import blogService from './services/blogs'
+//import blogService from './services/blogs'
 import loginService from './services/login'
 
-import { useField } from "./hooks"
+import {  useField, useResource } from "./hooks"
 
 
 function App() {
+  
 
-  const [blogs, setBlogs] = useState([])
+  const [blogs, blogService] = useResource('http://localhost:3001/api/blogs')
   const [user, setUser] =  useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
@@ -45,7 +46,8 @@ function App() {
   useEffect(() => {
     fetchBlogs()
   }, [])
-  */
+ 
+ 
   useEffect(() => {
     blogService
       .getAll().then(initialBlog => {
@@ -54,8 +56,8 @@ function App() {
        // setBlogs(sortedBlog)
       })
   }, [])
-  
-  console.log("initial blogs", blogs)
+   */
+ // console.log("initial blogs", blogs)
 // get user information from localStorage
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogListappUser')
@@ -80,7 +82,7 @@ function App() {
         'loggedBlogListappUser', JSON.stringify(user)
       ) 
 
-      blogService.setToken(user.token)
+      blogService.service.setToken(user.token)
       setUser(user)
       username.reset('')
       password.reset('')
@@ -95,38 +97,6 @@ function App() {
     }
    
   }
-/*
-// handle UsernameChange
-const handleUsernameChange = (event) => {
-  console.log("Handle Name Change",event.target.value);
-   setUsername(event.target.value) 
-};
-
-// HandlePassWordChange
-const handlePasswordChange = (event) => {
-  console.log("Handle password Change",event.target.value);
-  setPassword(event.target.value);
-};
-
-// HandleTitleWordChange
-const handleTitleChange = (event) => {
-  console.log("Handle Title Change",event.target.value);
-  setTitle(event.target.value);
-};
-
-// HandlePassAuthorChange
-const handleAuthorChange = (event) => {
-  console.log("Handle Author Change",event.target.value);
-  setAuthor(event.target.value);
-};
-
-// HandleUrlChange
-const handleUrlChange = (event) => {
-  console.log("Handle url Change",event.target.value);
-  setUrl(event.target.value);
-};
-
-*/
 
 
 
@@ -144,10 +114,10 @@ const handleAddBlog = async (event) => {
         url: url.inputProps.value,
       }
       console.log("new object to add: ", JSON.stringify(newBlog))
-      const blogCreated = await blogService.create(newBlog)
+      const blogCreated = await blogService.service.create(newBlog)
       //setBlogs(blogs.concat(blogCreated))
       console.log("new object to add: ", JSON.stringify(blogCreated))
-      setBlogs([...blogs, blogCreated])
+      //setBlogs([...blogs, blogCreated])
       setSuccessMessage(`a new blog added: ${title.inputProps.value} by ${user.name}`)
       
       title.reset('')
@@ -171,25 +141,8 @@ const handleAddBlog = async (event) => {
 const handleLogout = (event) => {
   window.localStorage.clear()
   setUser(null)
-  blogService.setToken(null)
-  /*
-  try {
-    window.localStorage.clear()
-    blogService.setToken(null)
-    setUser(null)
-    //window.localStorage.removeItem('login');
-   setSuccessMessage('Successfully logged out');
-    setTimeout(() => {
-      setSuccessMessage(null)
-    }, 5000)
-  } catch (error) {
-    setErrorMessage(`Something went wrong  ${error}`)
-    
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 5000)
-  }
- */
+  blogService.service.setToken(null)
+ 
 }
 const handleLikeUpdate = blogId =>  async event => {
   event.preventDefault();
@@ -205,9 +158,9 @@ const handleLikeUpdate = blogId =>  async event => {
                         user: user.id
                       }
     console.log( "updated blog", blogToUpdate)
-    const blogUpdated = await  blogService.update(blogId, blogToUpdate)
+    const blogUpdated = await  blogService.service.update(blogId, blogToUpdate)
     console.log( "updated blog", blogUpdated)
-    setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
+    //setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
     setSuccessMessage(
        `Blog ${foundBlog.title} written by ${foundBlog.author} liked!`
        );
@@ -245,9 +198,9 @@ const handleDelete = blogId =>  async event => {
   if (okCancel) {
     try {
  
-      const deletedBlog = await  blogService.remove(blogId)
+      const deletedBlog = await  blogService.service.remove(blogId)
       console.log( "updated blog", deletedBlog)
-      setBlogs(newBlogList)
+     // setBlogs(newBlogList)
       setSuccessMessage(
          `Blog post ${blogToDelete.title} deleted`
          )

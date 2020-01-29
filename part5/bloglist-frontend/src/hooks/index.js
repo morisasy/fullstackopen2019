@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+
 export const useField = type => {
   const [value, setValue] = useState('')
 
@@ -11,14 +12,15 @@ export const useField = type => {
     setValue(value)
   }
 
- 
+  const  inputProps = {
+              type,
+              value,
+              onChange,
+ }
 
-  return {
-        inputProps: {
-            type,
-            value,
-            onChange,
-        },
-        reset
-  }
+  return [
+          inputProps,
+          reset
+        ]
+  
 }
