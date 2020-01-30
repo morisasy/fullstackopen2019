@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+//const baseUrl = 'http://localhost:3003/api/blogs'
 
 export const useField = type => {
   const [value, setValue] = useState('')
@@ -18,11 +19,12 @@ export const useField = type => {
               onChange,
  }
 
-  return [
-          inputProps,
-          reset
-        ]
+  return {
+    inputProps,
+    reset
   
+  }
+           
 }
 
 
@@ -39,9 +41,10 @@ export const useResource = (baseUrl) => {
     const fetchData = async () => {
     const response = await axios(baseUrl)
     setResources(response.data)
+    console.log(response.data)
   }
     fetchData()
-  }, []) 
+  }, [baseUrl]) 
 
   
   const resetToken = () => {
@@ -74,7 +77,7 @@ export const useResource = (baseUrl) => {
       axios.delete(`${baseUrl}/${id}`, config)
       setResources(resources.filter(data => data.id !== id))
   }
-
+/*
   const service = {
     setToken,
     resetToken,
@@ -83,9 +86,17 @@ export const useResource = (baseUrl) => {
     remove,
     getAll
 }
+*/
   return [
       resources,
-      service
+      {
+        setToken,
+        resetToken,
+        create,
+        update,
+        remove,
+        getAll
+    }
      
   ]
 }

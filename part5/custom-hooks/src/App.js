@@ -18,7 +18,7 @@ import {  useField, useResource } from "./hooks"
 function App() {
   
 
-  const [blogs, blogService] = useResource('http://localhost:3001/api/blogs')
+  const [blogs, blogService] = useResource('http://localhost:3003/api/blogs')
   const [user, setUser] =  useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
@@ -82,7 +82,7 @@ function App() {
         'loggedBlogListappUser', JSON.stringify(user)
       ) 
 
-      blogService.service.setToken(user.token)
+      blogService.setToken(user.token)
       setUser(user)
       username.reset('')
       password.reset('')
@@ -114,7 +114,7 @@ const handleAddBlog = async (event) => {
         url: url.inputProps.value,
       }
       console.log("new object to add: ", JSON.stringify(newBlog))
-      const blogCreated = await blogService.service.create(newBlog)
+      const blogCreated = await blogService.create(newBlog)
       //setBlogs(blogs.concat(blogCreated))
       console.log("new object to add: ", JSON.stringify(blogCreated))
       //setBlogs([...blogs, blogCreated])
@@ -141,7 +141,7 @@ const handleAddBlog = async (event) => {
 const handleLogout = (event) => {
   window.localStorage.clear()
   setUser(null)
-  blogService.service.setToken(null)
+  blogService.setToken(null)
  
 }
 const handleLikeUpdate = blogId =>  async event => {
@@ -157,8 +157,8 @@ const handleLikeUpdate = blogId =>  async event => {
                         likes: newLike,
                         user: user.id
                       }
-    console.log( "updated blog", blogToUpdate)
-    const blogUpdated = await  blogService.service.update(blogId, blogToUpdate)
+    console.log( "blog To update", blogToUpdate)
+    const blogUpdated = await  blogService.update(blogId, blogToUpdate)
     console.log( "updated blog", blogUpdated)
     //setBlogs(blogs.map(blog => blog.id !== blogId ? blog: blogUpdated))
     setSuccessMessage(
@@ -198,7 +198,7 @@ const handleDelete = blogId =>  async event => {
   if (okCancel) {
     try {
  
-      const deletedBlog = await  blogService.service.remove(blogId)
+      const deletedBlog = await  blogService.remove(blogId)
       console.log( "updated blog", deletedBlog)
      // setBlogs(newBlogList)
       setSuccessMessage(
