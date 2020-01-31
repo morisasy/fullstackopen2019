@@ -17,7 +17,6 @@ console.log("blog list component: blogs: ", blogs)
 }
 
 BlogList.propTypes = {
-  
   handleLike: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired
 }

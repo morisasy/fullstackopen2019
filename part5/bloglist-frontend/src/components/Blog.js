@@ -34,10 +34,7 @@ const Blog = ({ blog, handleLike , handleDelete}) => {
           />       
    </div>
   )
-
-}
-
-//   blog:React.PropTypes.object.isRequired,
+  }
 Blog.propTypes = {
   handleLike: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired

@@ -32,20 +32,6 @@ function App() {
 
 
 
-  // get all blog data from server
-  // Initilize blogs state
-
- 
-  /*
- const fetchBlogs = async () => {
-    const blogs = await blogService.getAll();
-    setBlogs(blogs);
-  }
-
-  useEffect(() => {
-    fetchBlogs()
-  }, [])
-  */
   useEffect(() => {
     blogService
       .getAll().then(initialBlog => {
@@ -95,38 +81,6 @@ function App() {
     }
    
   }
-/*
-// handle UsernameChange
-const handleUsernameChange = (event) => {
-  console.log("Handle Name Change",event.target.value);
-   setUsername(event.target.value) 
-};
-
-// HandlePassWordChange
-const handlePasswordChange = (event) => {
-  console.log("Handle password Change",event.target.value);
-  setPassword(event.target.value);
-};
-
-// HandleTitleWordChange
-const handleTitleChange = (event) => {
-  console.log("Handle Title Change",event.target.value);
-  setTitle(event.target.value);
-};
-
-// HandlePassAuthorChange
-const handleAuthorChange = (event) => {
-  console.log("Handle Author Change",event.target.value);
-  setAuthor(event.target.value);
-};
-
-// HandleUrlChange
-const handleUrlChange = (event) => {
-  console.log("Handle url Change",event.target.value);
-  setUrl(event.target.value);
-};
-
-*/
 
 
 
@@ -172,24 +126,7 @@ const handleLogout = (event) => {
   window.localStorage.clear()
   setUser(null)
   blogService.setToken(null)
-  /*
-  try {
-    window.localStorage.clear()
-    blogService.setToken(null)
-    setUser(null)
-    //window.localStorage.removeItem('login');
-   setSuccessMessage('Successfully logged out');
-    setTimeout(() => {
-      setSuccessMessage(null)
-    }, 5000)
-  } catch (error) {
-    setErrorMessage(`Something went wrong  ${error}`)
-    
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 5000)
-  }
- */
+ 
 }
 const handleLikeUpdate = blogId =>  async event => {
   event.preventDefault();
